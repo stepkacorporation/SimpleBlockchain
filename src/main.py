@@ -1,20 +1,9 @@
-from src.blockchain import Blockchain
+from fastapi import FastAPI
 
+from src.api import routers
 
-def main():
-    blockchain = Blockchain()
+app = FastAPI()
 
-    blockchain.add_transaction('Alice', 'Bob', 10)
-    blockchain.add_transaction('Bob', 'Charlie', 15)
-
-    blockchain.create_block()
-
-    blockchain.add_transaction('Charlie', 'Alice', 5)
-
-    blockchain.create_block()
-
-    blockchain.print_chain()
-
-
-if __name__ == '__main__':
-    main()
+app.include_router(routers.router_blockchain)
+app.include_router(routers.router_transactions)
+app.include_router(routers.router_nodes)
